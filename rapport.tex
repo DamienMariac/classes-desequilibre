@@ -1,24 +1,38 @@
 \documentclass[a4paper,12pt]{article}
 
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{references.bib}
+
+\setlength{\parindent}{0pt}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english,french]{babel}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{geometry}
+\usepackage{titling}
+\usepackage{hyperref}
 \geometry{a4paper, margin=1in}
 
-\title{Rapport de Projet}
-\author{MARIAC Damien, LABOURAIL Célia , GERMAIN Marine,
-EL SAWADOGO Kader}
+\title{
+  \Huge\textbf{Apprentissage de classes déséquilibrées}\\
+  \LARGE HAX907X - Apprentissage statistique
+}
 
+\author{
+EL SAWADOGO Kader\\
+GERMAIN Marine\\
+LABOURAIL Célia\\
+MARIAC Damien
+}
+\date{\today}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-Ce document présente le rapport du projet réalisé dans le cadre du cours d'application statistique. Il détaille les objectifs, la méthodologie, les résultats obtenus et les conclusions tirées.
+Ce document présente le rapport du projet réalisé dans le cadre du cours d'apprentissage statistique. Il détaille les objectifs, la méthodologie, les résultats obtenus et les conclusions tirées.
 \end{abstract}
 
 
@@ -26,7 +40,20 @@ Ce document présente le rapport du projet réalisé dans le cadre du cours d'ap
 
 \newpage
 
-\section{Contexte et Objectifs Marine}
+\section{Contexte et Objectifs}
+
+Dans le cadre de ce travail, nous nous intéressons à l’apprentissage supervisé dans des contextes où les classes sont déséquilibrées.
+Ce problème est fréquent dans de nombreux domaines, tels que la détection de fraudes, la médecine ou le diagnostic industriel. Un déséquilibre important des classes peut conduire à des modèles biaisés : ils tendent à prédire correctement les classes majoritaires en négligeant les classes minoritaires.\\
+
+La problématique scientifique que nous étudions est donc la suivante : "Comment atténuer le déséquilibre de classes pour améliorer la performance des modèles ?"\\
+
+L’objectif de ce travail est d’étudier des méthodes permettant de résoudre ce déséquilibre. Plus précisément, nous nous concentrons sur trois approches issues d’articles scientifiques :
+\begin{enumerate}
+    \item Le \textbf{Random Over-Sampling} (ROS) cité dans l’article \textit{Survey on Deep Learning with Class Imbalance} \cite{johnson2019survey}, une méthode de rééchantillonage qui consiste à augmenter artificiellement la proportion de la classe minoritaire.
+    \item Le \textbf{Random Under-Sampling} (RUS), une autre méthode de rééchantillonage,  cité également dans l’article \cite{johnson2019survey} qui consiste à réduire la proportion de la classe majoritaire
+    \item La \textbf{Synthetic Minority Over-sampling Technique} (SMOTE) présenté dans l’article \cite{chawla2002smote} qui génère de nouvelles instances synthétiques pour la classe minoritaire à partir des observations existantes
+\end{enumerate}
+
 
 \newpage
 
@@ -108,6 +135,7 @@ Les points bleu correspondent à la classe minoritaire dont on souhaite génére
 
 
 \newpage
-\section*{bibliographie}
+
+\printbibliography
 
 \end{document}
