@@ -1,0 +1,17 @@
+#Fichier cache python
+__pycache__/
+*.pyc
+
+#Fichier de compilation LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.run.xml
+*.synctex.gz
+*.toc
