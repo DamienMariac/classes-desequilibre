@@ -57,22 +57,6 @@ L’objectif de ce travail est d’étudier des méthodes permettant de résoudr
 \end{enumerate}
 
 
-\newpage
-
-\section{Méthodologie Damien}
-
-\newpage
-
-\section{Forces et Faiblesses Célia}
-
-\newpage
-
-\section{Exemples d'applications Kader}
-
-\newpage
-
-\section{BRAIN STORM --------------------}
-
 \section{Les différentes méthodes}
 \subsection{Méthodes au niveau des données}
 Les méthodes data-level agissent directement sur les données d’entraînement pour atténuer le
@@ -92,6 +76,11 @@ instances minoritaires existantes jusqu’à atteindre un équilibre désiré. P
 de 100 exemples minoritaires et 1000 majoritaires, le ROS peut répliquer les minoritaires
 (éventuellement plusieurs fois chacun) jusqu’à en obtenir 1000, rétablissant ainsi un ratio équilibré. On échantillonne avec remise parmi les indices de la classe minoritaire pour
 générer de nouvelles instances d’entraînement.
+\\
+\\
+La méthode présente des inconvenients. En effet, la duplication augmente le risque de surapprentissage (overfitting), car le modèle apprend alors trop précisément les exemples déjà présents dans la base de données, ce qui nuit à sa capacité à généraliser sur de nouvelles données.
+De plus, la duplication de données minoritaire augmenterait significativement la taille des données ce qui implique un coût de calcule plus important.
+
 
 \subsubsection{Sous-échantillonnage (Under-sampling)}
 
@@ -103,38 +92,33 @@ données majoritaires, potentiellement redondantes. Plutôt que de tout utiliser
 coûteux et inutile, on peut se permettre d’en élaguer une partie. En réduisant drastiquement le nombre
 d’exemples majoritaires, on élimine le biais numérique et on accélère l’entraînement (moins de
 données à parcourir).
+\\
+\\
+Selon différents articles comme Bee Wah Yap et al. (2013) \cite{MerwanC}, il est souvent préférable d’utiliser le Random Undersampling plutôt que le Random Oversampling, à condition que la taille du jeu de données le permette.
+\\
+\\
+
+Les deux méthodes de rééchantillonnage (ROS et RUS) présentent aussi certaines limites. Elles peuvent notam-
+ment conduire le modèle à croire que certaines combinaisons de variables expliquent à
+elles seules la majorité des observations minoritaires, ce qui peut fausser la compréhension
+réelle des relations entre variables.
 
 \subsubsection{SMOTE (Synthetic Minority Over-sampling Technique)}
 
-
-
 Plutôt que de copier des instances existantes,
-SMOTE crée de nouvelles instances minoritaires artificielles en interpolant entre des exemples réels.Concrètement, pour chaque exemple minoritaire original, SMOTE sélectionne aléatoirement l’un de ses
+SMOTE crée de nouvelles instances minoritaires artificielles en interpolant entre des exemples réels. Concrètement, pour chaque exemple minoritaire original, SMOTE sélectionne aléatoirement l’un de ses
 $k$ plus proches voisins (minoritaire également), puis génère un nouvel exemple situé aléatoirement le
 long du segment joignant les deux points dans l’espace des \textit{features}. En répétant ce procédé, on
 peut synthétiser autant d’exemples minoritaires que souhaité.
-
-
-
-\subsection{Méthodes au niveau de l'algorithme }
-????????
-\newpage
-\section{force et faiblesse }
-Selon différents articles comme Bee Wah Yap et al. (2013), il est souvent préférable d’utiliser le Random Undersampling plutôt que le Random Oversampling, à condition que la taille du jeu de données le permette.
- En effet, le Random Oversampling consiste à dupliquer aléatoirement certaines observations de la classe minoritaire afin de rééquilibrer les classes. Cependant, cette duplication augmente le risque de surapprentissage (overfitting),
-  car le modèle apprend alors trop précisément les exemples déjà présents dans la base de données, ce qui nuit à sa capacité à généraliser sur de nouvelles données.
-Les méthodes classiques de rééchantillonnage présentent aussi certaines limites. Elles peuvent notamment conduire le modèle à croire que certaines combinaisons de variables expliquent à elles seules la majorité des observations minoritaires, ce qui peut fausser
- la compréhension réelle des relations entre variables.\medskip
-
- Contrairement à l’oversampling aléatoire, SMOTE ne duplique pas les données existantes mais crée de nouvelles observations synthétiques.  Cette approche permet d’enrichir la représentation de la classe minoritaire tout en limitant
-  partiellement les risques d’overfitting.\medskip
-
+\\
+\\
+% RAJOUTE LE TEMPS DE CALCUL (l'idée de la demo)
 Malgré ses avantages, SMOTE présente plusieurs inconvénients importants. Tout d’abord, son temps de calcul est plus long que celui des méthodes plus simples. Cela s’explique par le fait que l’algorithme doit calculer la distance
 entre chaque observation minoritaire et tous les autres points pour identifier ses k plus proches voisins. Ce calcul devient rapidement coûteux lorsque la taille du jeu de données augmente, car le nombre de comparaisons croît de manière quadratique (de l’ordre de O(n²)). En pratique, cela signifie que sur des bases volumineuses ou avec beaucoup de variables, SMOTE peut nécessiter des temps de traitement bien plus élevés,
 surtout lorsqu’il est utilisé à chaque étape d’une validation croisée.
 Un autre problème souvent mentionné dans la littérature concerne la sensibilité de SMOTE aux points aberrants. Si une observation minoritaire isolée se trouve très proche d’un point appartenant à la classe majoritaire, l’algorithme risque d’utiliser cette proximité
 pour créer de nouvelles données synthétiques incorrectes. Cela peut introduire du bruit et perturber l’apprentissage du modèle. Pour limiter ce problème, il est possible d’ignorer les observations minoritaires dont les k plus proches voisins appartiennent principalement
- à la classe majoritaire, afin d’éviter de générer des points non représentatifs.\medskip
+à la classe majoritaire, afin d’éviter de générer des points non représentatifs.\medskip
 
 
 Plusieurs variantes de SMOTE ont été développées pour corriger ces défauts.
@@ -144,29 +128,57 @@ Par exemple :
     \item \textbf{Borderline-SMOTE} (Hui Han, Wen-Yuan Wang et Bing-Huan Mao, 2005 ) : se concentre sur les points situés à la frontière entre classes, considérés comme plus informatifs pour le modèle.
 \end{itemize}
 
-SMOTE représente une amélioration importante par rapportaux méthodes de rééchantillonnage aléatoires, car il permet de mieux exploiter l’information disponible dans la classe minoritaire. Toutefois, il reste plus coûteux en calcul et sensible aux valeurs aberrantes, ce qui peut poser problème lorsque la base de donnée est très volumineuse ou lorsque les ressources de calcul sont limitées. Le choix de la méthode de rééchantillonnage doit donc se faire en tenant compte à la fois de la taille des données, du type de variable et du temps de traitement disponible.
-
-\bigskip
-\textbf{Source :} MÉTHODES DE RÉÉQUILIBRAGE DES CLASSES en classification supervisée, Merwan CHELOUAH.
-
 
 
 \newpage
 
-\section*{Méthodes de gestion du déséquilibre des classes}
+\section*{A Annexe}
 
-\subsection*{Algorithme 1 : Full Data (sans rééquilibrage)}
-\begin{algorithm}[H]
-\caption{Full Data (sans rééquilibrage)}
-\KwIn{Dataset $D$ avec classes $C_{maj}$ et $C_{min}$}
-\KwOut{Dataset inchangé $D'$}
+\subsection*{Illustration de SMOTE}
 
-Séparer $D$ en train et test\;
-Standardiser les variables\;
-\Return $D'$\;
-\end{algorithm}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/smote.png}
+    \caption{Smote illustration}
+    \label{fig:example}
+\end{figure}
+Les points bleu correspondent à la classe minoritaire dont on souhaite générer de nouveaux exemples, les points rouge sont les points générés par SMOTE.
 
-\subsection*{Algorithme 2 : Random Undersampling}
+\newpage
+\section*{B Annexe : Implémentation et résultats}
+\subsection*{Exemple d'application : Détection de fraudes par carte bancaire}
+
+L’objectif de cette application est de mettre en place un modèle de détection de fraudes à partir du jeu de données \textit{Credit Card Fraud Detection} disponible sur \textit{Kaggle}.
+Ce jeu contient 284\,807 transactions, dont seulement 492 sont frauduleuses (soit environ 0,17 \%).
+Le fort déséquilibre entre les classes rend la tâche difficile, car un modèle naïf qui prédirait toujours ``non fraude'' atteindrait déjà un score proche de 99,8 \%.
+Pour dépasser cette limite, plusieurs stratégies de gestion du déséquilibre ont été appliquées et comparées en utilisant une régression logistique.
+
+\subsubsection*{Régression logistique sans traitement}
+Dans un premier temps, nous avons entraîné le modèle sur l’ensemble complet, sans traitement particulier du déséquilibre.
+Les résultats montrent une accuracy très élevée (0,9991), mais trompeuse, puisque le rappel (sensitivity) des fraudes n’est que de 0,61.
+Autrement dit, la majorité des fraudes ne sont pas détectées, ce qui rend le modèle inutilisable en pratique malgré une performance apparente.
+
+\subsubsection*{Random undersampling}
+Afin de corriger ce problème, nous avons testé le \textit{random undersampling}, qui consiste à équilibrer les classes en réduisant volontairement le nombre de transactions normales pour égaler celui des fraudes.
+Dans ce cas, le modèle obtient une \textit{balanced accuracy} d’environ 0,956 avec un rappel de 0,959.
+Le modèle apprend donc à bien reconnaître les fraudes, mais au prix d’une perte importante d’information, puisque la majorité des transactions légitimes est écartée.
+
+\subsubsection*{Random oversampling}
+La seconde approche est le \textit{random oversampling}, qui duplique aléatoirement les fraudes afin de créer un jeu équilibré.
+Cette méthode conserve toutes les données disponibles et améliore le rappel (0,977), ce qui signifie que presque toutes les fraudes sont détectées.
+La \textit{balanced accuracy} atteint 0,949.
+Toutefois, l’inconvénient de cette méthode est le risque de surapprentissage, car les exemples de fraude sont répétés artificiellement sans ajouter de diversité.
+
+\subsubsection*{SMOTE}
+Enfin, nous avons appliqué la méthode \textit{SMOTE (Synthetic Minority Oversampling Technique)}, qui génère artificiellement de nouveaux exemples de fraude en interpolant entre des observations existantes.
+Cette méthode dépasse les performances des précédentes, avec une accuracy globale de 0,981, un rappel de 0,992 et une spécificité de 0,970.
+Elle offre donc le meilleur compromis entre la détection des fraudes et la limitation des faux positifs.
+
+
+\vspace{1cm}
+
+
+\subsection*{Algorithme 1 : Random Undersampling}
 \begin{algorithm}[H]
 \caption{Random Undersampling}
 \KwIn{Dataset $D$ avec classes $C_{maj}$ et $C_{min}$}
@@ -178,7 +190,7 @@ Construire $D' = C_{min} \cup$ sous-échantillon($C_{maj}$)\;
 \Return $D'$\;
 \end{algorithm}
 
-\subsection*{Algorithme 3 : Random Oversampling}
+\subsection*{Algorithme 2 : Random Oversampling}
 \begin{algorithm}[H]
 \caption{Random Oversampling}
 \KwIn{Dataset $D$ avec classes $C_{maj}$ et $C_{min}$}
@@ -192,7 +204,7 @@ Construire $D' = C_{maj} \cup C_{min}$ (après duplication)\;
 \Return $D'$\;
 \end{algorithm}
 
-\subsection*{Algorithme 4 : SMOTE}
+\subsection*{Algorithme 3 : SMOTE}
 \begin{algorithm}[H]
 \caption{Borderline-SMOTE (Synthetic Minority Oversampling Technique)}
 \KwIn{Dataset $D$ avec classes $C_{maj}$ et $C_{min}$, nombre de voisins $k$}
@@ -241,49 +253,6 @@ Construire la \textbf{matrice de confusion} pour évaluer les performances\;
 \Return{ROC, AUC, matrice de confusion}\;
 \end{algorithm}
 
-
-
-\section{Exemple d'application : Détection de fraudes par carte bancaire}
-
-L’objectif de cette application est de mettre en place un modèle de détection de fraudes à partir du jeu de données \textit{Credit Card Fraud Detection} disponible sur Kaggle.
-Ce jeu contient 284\,807 transactions, dont seulement 492 sont frauduleuses (soit environ 0,17 \%).
-Le fort déséquilibre entre les classes rend la tâche difficile, car un modèle naïf qui prédirait toujours ``non fraude'' atteindrait déjà une précision (accuracy) proche de 99,8 \%.
-Pour dépasser cette limite, plusieurs stratégies de gestion du déséquilibre ont été appliquées et comparées en utilisant une régression logistique.
-
-\subsection*{Régression logistique sans traitement}
-Dans un premier temps, nous avons entraîné le modèle sur l’ensemble complet, sans traitement particulier du déséquilibre.
-Les résultats montrent une accuracy très élevée (0,9991), mais trompeuse, puisque le rappel (sensitivity) des fraudes n’est que de 0,61.
-Autrement dit, la majorité des fraudes ne sont pas détectées, ce qui rend le modèle inutilisable en pratique malgré une performance apparente.
-
-\subsection*{Random undersampling}
-Afin de corriger ce problème, nous avons testé le \textit{random undersampling}, qui consiste à équilibrer les classes en réduisant volontairement le nombre de transactions normales pour égaler celui des fraudes.
-Dans ce cas, le modèle obtient une \textit{balanced accuracy} d’environ 0,956 avec un rappel de 0,959.
-Le modèle apprend donc à bien reconnaître les fraudes, mais au prix d’une perte importante d’information, puisque la majorité des transactions légitimes est écartée.
-
-\subsection*{Random oversampling}
-La seconde approche est le \textit{random oversampling}, qui duplique aléatoirement les fraudes afin de créer un jeu équilibré.
-Cette méthode conserve toutes les données disponibles et améliore le rappel (0,977), ce qui signifie que presque toutes les fraudes sont détectées.
-La \textit{balanced accuracy} atteint 0,949.
-Toutefois, l’inconvénient de cette méthode est le risque de surapprentissage, car les exemples de fraude sont répétés artificiellement sans ajouter de diversité.
-
-\subsection*{SMOTE}
-Enfin, nous avons appliqué la méthode \textit{SMOTE (Synthetic Minority Oversampling Technique)}, qui génère artificiellement de nouveaux exemples de fraude en interpolant entre des observations existantes.
-Cette méthode dépasse les performances des précédentes, avec une accuracy globale de 0,981, un rappel de 0,992 et une spécificité de 0,970.
-Elle offre donc le meilleur compromis entre la détection des fraudes et la limitation des faux positifs.
-
-
-
-\newpage
-
-\section*{Annexe}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/smote.png}
-    \caption{Smote illustration}
-    \label{fig:example}
-\end{figure}
-Les points bleu correspondent à la classe minoritaire dont on souhaite générer de nouveaux exemples, les points rouge sont les points générés par SMOTE.
 
 \newpage
 
