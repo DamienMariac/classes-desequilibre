@@ -105,7 +105,8 @@
 Dans le cadre de ce travail, nous nous intéressons à l’apprentissage supervisé dans des contextes où les classes sont déséquilibrées.
 Ce problème est fréquent dans de nombreux domaines, tels que la détection de fraudes, la médecine ou le diagnostic industriel. Un déséquilibre important des classes peut conduire à des modèles biaisés : ils tendent à prédire correctement les classes majoritaires en négligeant les classes minoritaires.\\
 
-La problématique scientifique que nous étudions est donc la suivante : "Comment atténuer le déséquilibre de classes pour améliorer la performance des modèles ?"\\
+La problématique scientifique que nous étudions est donc la suivante : \\
+"Comment atténuer le déséquilibre de classes pour améliorer la performance des modèles ?"\\
 
 L’objectif de ce travail est d’étudier des méthodes permettant de résoudre ce déséquilibre. Plus précisément, nous nous concentrons sur trois approches issues d’articles scientifiques :
 \begin{enumerate}
@@ -127,7 +128,7 @@ biais supplémentaire, il faut donc les appliquer judicieusement.
 
 \subsection{Sur-échantillonnage (Over-sampling)}
 
-Le sur-échantillonnage (oversampling) consiste à ajouter des copies ou des variantes des exemples de
+Le sur-échantillonnage consiste à ajouter des copies ou des variantes des exemples de
 la classe minoritaire jusqu’à augmenter sa fréquence dans le jeu de données. Dans sa forme la plus
 simple, le sur-échantillonnage aléatoire (Random Over-Sampling, ROS) duplique aléatoirement des
 instances minoritaires existantes jusqu’à atteindre un équilibre désiré. Par exemple, si l’on dispose
@@ -142,7 +143,7 @@ De plus, la duplication de données minoritaire augmenterait significativement l
 
 \subsection{Sous-échantillonnage (Under-sampling)}
 
-À l’inverse, le sous-échantillonnage (undersampling) vise à réduire la proportion de la classe
+À l’inverse, le sous-échantillonnage vise à réduire la proportion de la classe
 majoritaire en retirant certains de ses exemples du jeu de données. Le sous-échantillonnage aléatoire
 (Random Under-Sampling, RUS) élimine au hasard des instances de la classe majoritaire jusqu’à atteindre
 un ratio plus équilibré avec la minorité.le RUS est utile lorsque l’on dispose d’une grande abondance de
@@ -186,7 +187,49 @@ Plusieurs variantes de SMOTE ont été développées pour corriger ces défauts 
 
 \section{Conclusion}
 
-% Conclusion = Tableau récapitulatif
+Les méthodes ROS, RUS et SMOTE sont des approches différentes pour corriger le déséquilibre de classes. Elles ne se comparent pas directement, car leur efficacité dépend du jeu de données et du contexte d’application. 
+En effet, on voit sur le tableau \ref{tab:methode} le récapitulatif des 3 méthodes avec leur points forts et point faibles. \\
+En réponse à la problématique posée, il n’existe pas de méthode réellement meilleure qu'une autre : le choix doit être adapté aux données et au modèle utilisé. 
+L’objectif est d’obtenir un jeu de données plus équilibré afin d’améliorer les performances du modèle.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|p{1.5cm}|p{4cm}|p{4.5cm}|p{4.2cm}|}
+\hline
+
+\centering
+\textbf{Méthode} & \textbf{Principe} & \textbf{Avantages} & \textbf{Inconvénients} \\ \hline
+
+\centering
+ROS &
+Duplication aléatoire de la classe minoritaire &
+- Simplicité \newline
+- Conservation des données &
+- Surapprentissage \newline
+- Volume important de \newline données \\ \hline
+
+
+\centering
+RUS &
+Suppression aléatoire de la classe majoritaire &
+- Rapidité \newline
+- Réduction du biais \newline
+- Moins de données à traiter &
+- Perte d’information \newline
+- Moins de représentativité \\ \hline
+
+\centering
+SMOTE &
+Création d'exemples synthétiques de la classe minoritaire (interpolation entre exemples réels) &
+- Données synthétiques \newline variées \newline
+- Moins de surapprentissage que ROS &
+- Coût calcul élevé \newline
+- Sensible aux valeurs \newline abberrantes \newline
+- Risque de bruit \\ \hline
+\end{tabular}
+\caption{Résumé des méthodes}\label{tab:methode}
+\end{table}
+
 
 \newpage
 
