@@ -8,7 +8,7 @@ Dans le cadre d'une étude d'articles scientifiques en apprentissage statistique
 
 ## Objectifs
 - Comprendre le fonctionnement des méthodes ROS, RUS et SMOTE.  
-- Les comparer sur un jeu de données standard.  
+- Comprendre comment ces méthodes atténuent le déséquilibre des classes.
 
 ## Auteurs
 - Abdoul-El-Kader Sawadogo : [abdoul-el.sawadogo@etu.umontpellier.fr](abdoul-el.sawadogo@etu.umontpellier.fr)
