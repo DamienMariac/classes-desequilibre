@@ -22,9 +22,9 @@
 \usepackage{setspace}
 
 % Marges
-\usepackage{geometry}
-\geometry{top=2.5cm, bottom=2.5cm, left=1.8cm, right=1.8cm}
-\setstretch{1.2}
+%\usepackage{geometry}
+%\geometry{top=2.5cm, bottom=2.5cm, left=1.8cm, right=1.8cm}
+%\setstretch{1.2}
 
 % Définir les variables (vides par défaut)
 \newcommand{\UE}{}
@@ -114,11 +114,11 @@ Ce problème est fréquent dans de nombreux domaines, tels que la détection de 
 La problématique scientifique que nous étudions est donc la suivante : \\
 "Comment atténuer le déséquilibre de classes pour améliorer la performance des modèles ?"\\
 
-L’objectif de ce travail est d’étudier des méthodes permettant de résoudre ce déséquilibre. Plus précisément, nous nous concentrons sur trois approches issues d’articles scientifiques :
+L’objectif de ce travail est d’étudier des méthodes permettant de résoudre ce déséquilibre. Plus précisément, nous nous concentrons sur trois approches :
 \begin{enumerate}
     \item Le \textbf{Random Over-Sampling} (ROS) cité dans l’article \textit{Survey on Deep Learning with Class Imbalance} \cite{johnson2019survey}, une méthode de rééchantillonage qui consiste à augmenter artificiellement la proportion de la classe minoritaire.
-    \item Le \textbf{Random Under-Sampling} (RUS), une autre méthode de rééchantillonage,  cité également dans l’article \cite{johnson2019survey} qui consiste à réduire la proportion de la classe majoritaire
-    \item La \textbf{Synthetic Minority Over-sampling Technique} (SMOTE) présenté dans l’article \cite{chawla2002smote} qui génère de nouvelles instances synthétiques pour la classe minoritaire à partir des observations existantes
+    \item Le \textbf{Random Under-Sampling} (RUS), une autre méthode de rééchantillonage,  cité également dans l’article \cite{johnson2019survey} qui consiste à réduire la proportion de la classe majoritaire.
+    \item La \textbf{Synthetic Minority Over-sampling Technique} (SMOTE) présenté dans l’article \cite{chawla2002smote} qui génère de nouvelles instances synthétiques pour la classe minoritaire à partir des observations existantes.
 \end{enumerate}
 
 
@@ -134,24 +134,27 @@ biais supplémentaire, il faut donc les appliquer judicieusement.
 
 \subsection{Sur-échantillonnage (Over-sampling)}
 
-Le sur-échantillonnage consiste à ajouter des copies ou des variantes des exemples de
+Le sur-échantillonnage consiste à ajouter des copies ou des variantes d'exemples de
 la classe minoritaire jusqu’à augmenter sa fréquence dans le jeu de données. Dans sa forme la plus
-simple, le sur-échantillonnage aléatoire (Random Over-Sampling, ROS) duplique aléatoirement des
-instances minoritaires existantes jusqu’à atteindre un équilibre désiré. Par exemple, si l’on dispose
+simple, le sur-échantillonnage aléatoire ROS duplique aléatoirement des
+instances minoritaires existantes jusqu’à atteindre un équilibre désiré.
+\\
+\\
+Par exemple, si l’on dispose
 de 100 exemples minoritaires et 1000 majoritaires, le ROS peut répliquer les minoritaires
 (éventuellement plusieurs fois chacun) jusqu’à en obtenir 1000, rétablissant ainsi un ratio équilibré. On échantillonne avec remise parmi les indices de la classe minoritaire pour
 générer de nouvelles instances d’entraînement.
 \\
 
-La méthode présente des inconvenients. En effet, la duplication augmente le risque de surapprentissage (overfitting), car le modèle apprend alors trop précisément les exemples déjà présents dans la base de données, ce qui nuit à sa capacité à généraliser sur de nouvelles données.
-De plus, la duplication de données minoritaire augmenterait significativement la taille des données ce qui implique un coût de calcule plus important.
+En revanche, la méthode présente des inconvénients. En effet, la duplication augmente le risque de surapprentissage (overfitting), car le modèle apprend alors trop précisément les exemples déjà présents dans la base de données, ce qui nuit à sa capacité à généraliser sur des nouvelles données.
+De plus, la duplication de données minoritaire augmenterait significativement la taille des données ce qui implique un coût de calcul plus important.
 
 
 \subsection{Sous-échantillonnage (Under-sampling)}
 
 À l’inverse, le sous-échantillonnage vise à réduire la proportion de la classe
 majoritaire en retirant certains de ses exemples du jeu de données. Le sous-échantillonnage aléatoire
-(Random Under-Sampling, RUS) élimine au hasard des instances de la classe majoritaire jusqu’à atteindre
+RUS élimine au hasard des instances de la classe majoritaire jusqu’à atteindre
 un ratio plus équilibré avec la minorité. Le RUS est utile lorsque l’on dispose d’une grande abondance de
 données majoritaires, potentiellement redondantes. Plutôt que de tout utiliser, ce qui peut être
 coûteux et inutile, on peut se permettre d’en élaguer une partie. En réduisant drastiquement le nombre
@@ -159,10 +162,10 @@ d’exemples majoritaires, on élimine le biais numérique et on accélère l’
 données à parcourir).
 \\
 
-Selon différents articles comme Bee Wah Yap et al. (2013) \cite{MerwanC}, il est souvent préférable d’utiliser le Random Undersampling plutôt que le Random Oversampling, à condition que la taille du jeu de données le permette.
+Selon l'article de Bee Wah Yap et al. (2013) \cite{MerwanC}, il est souvent préférable d’utiliser le RUS plutôt que le ROS, à condition que la taille du jeu de données le permette.
 \\
 
-Les deux méthodes de rééchantillonnage (ROS et RUS) présentent aussi certaines limites. Elles peuvent notamment conduire le modèle à croire que certaines combinaisons de variables expliquent à
+Les deux méthodes de rééchantillonnage ROS et RUS présentent aussi certaines limites. Elles peuvent notamment conduire le modèle à croire que certaines combinaisons de variables expliquent à
 elles seules la majorité des observations minoritaires, ce qui peut fausser la compréhension
 réelle des relations entre variables.
 
@@ -173,6 +176,15 @@ SMOTE crée de nouvelles instances minoritaires artificielles en interpolant ent
 $k$ plus proches voisins (minoritaire également), puis génère un nouvel exemple situé aléatoirement le
 long du segment joignant les deux points dans l’espace des \textit{features}. En répétant ce procédé, on
 peut synthétiser autant d’exemples minoritaires que souhaité.
+
+\begin{figure}[h!]
+   \centering
+   \includegraphics[width=0.46\textwidth]{images/smote.png}
+   \caption{Smote illustration}
+   \label{fig:example}
+\end{figure}
+
+Les points bleus correspondent à la classe minoritaire dont on souhaite générer de nouveaux exemples, les points rouges sont les points générés par SMOTE.
 \\
 \\
 Typiquement, on se place dans un espace métrique $(\mathbb{R}^d, d)$, avec la distance euclidienne (après normalisation des variables). Soit un jeu d'apprentissage
@@ -193,8 +205,8 @@ En répétant cette opération $M$ fois (réparties sur les $x_i\in\mathcal{I}_{
 \]
 \\
 \\
-Malgré ses avantages, SMOTE présente plusieurs inconvénients importants. Tout d’abord, son temps de calcul est plus long que celui des méthodes plus simples. Cela s’explique par le fait que l’algorithme doit calculer la distance
-entre chaque observation minoritaire et tous les autres points pour identifier ses k plus proches voisins. Ce calcul devient rapidement coûteux lorsque la taille du jeu de données augmente, car le nombre de comparaisons croît de manière quadratique (détails en annexe). En pratique, cela signifie que sur des bases volumineuses ou avec beaucoup de variables, SMOTE peut nécessiter des temps de traitement bien plus élevés,
+Cependant, SMOTE présente plusieurs inconvénients importants. Tout d’abord, son temps de calcul est plus long que celui des méthodes plus simples. Cela s’explique par le fait que l’algorithme doit calculer la distance
+entre chaque observation minoritaire et tous les autres points pour identifier ses k plus proches voisins. Ce calcul devient rapidement coûteux lorsque la taille du jeu de données augmente, car le nombre de comparaisons croît de manière quadratique (détails en annexe \ref{sec:algo}). En pratique, cela signifie que sur des bases volumineuses ou avec beaucoup de variables, SMOTE peut nécessiter des temps de traitement bien plus élevés,
 surtout lorsqu’il est utilisé à chaque étape d’une validation croisée.
 \\
 \\
@@ -205,7 +217,7 @@ pour créer de nouvelles données synthétiques incorrectes. Cela peut introduir
 
 Plusieurs variantes de SMOTE ont été développées pour corriger ces défauts :
 \begin{itemize}
-    \item \textbf{SMOTE-NC (Nominal and Continuous)} : s’adapte aux jeux de données contenant à la fois des variables continues et qualitatives ;
+    \item \textbf{SMOTE-NC (Nominal and Continuous)} : s’adapte aux jeux de données contenant à la fois des variables continues et qualitatives.
     \item \textbf{Borderline-SMOTE} (Hui Han, Wen-Yuan Wang et Bing-Huan Mao, 2005 ) : se concentre sur les points situés à la frontière entre classes, considérés comme plus informatifs pour le modèle.
 \end{itemize}
 
@@ -262,18 +274,6 @@ Création d'exemples synthétiques de la classe minoritaire (interpolation entre
 
 \section{Annexe}
 
-\subsection{Illustration de SMOTE}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/smote.png}
-    \caption{Smote illustration}
-    \label{fig:example}
-\end{figure}
-Les points bleus correspondent à la classe minoritaire dont on souhaite générer de nouveaux exemples, les points rouges sont les points générés par SMOTE.
-
-\newpage
-
 \subsection{Implémentation et résultats}
 \subsection*{Exemple d'application : Détection de fraudes par carte bancaire}
 
@@ -287,13 +287,13 @@ Dans un premier temps, nous avons entraîné le modèle sur l’ensemble complet
 Les résultats montrent une accuracy très élevée (0,9991), mais trompeuse, puisque le rappel (sensitivity) des fraudes n’est que de 0,61.
 Autrement dit, la majorité des fraudes ne sont pas détectées, ce qui rend le modèle inutilisable en pratique malgré une performance apparente.
 
-\subsubsection*{Random undersampling}
-Afin de corriger ce problème, nous avons testé le \textit{random undersampling}, qui consiste à équilibrer les classes en réduisant volontairement le nombre de transactions normales pour égaler celui des fraudes.
+\subsubsection*{RUS}
+Afin de corriger ce problème, nous avons testé le RUS, qui consiste à équilibrer les classes en réduisant volontairement le nombre de transactions normales pour égaler celui des fraudes.
 Dans ce cas, le modèle obtient une \textit{balanced accuracy} d’environ 0,956 avec un rappel de 0,959.
 Le modèle apprend donc à bien reconnaître les fraudes, mais au prix d’une perte importante d’information, puisque la majorité des transactions légitimes est écartée.
 
-\subsubsection*{Random oversampling}
-La seconde approche est le \textit{random oversampling}, qui duplique aléatoirement les fraudes afin de créer un jeu équilibré.
+\subsubsection*{ROS}
+La seconde approche est le ROS, qui duplique aléatoirement les fraudes afin de créer un jeu équilibré.
 Cette méthode conserve toutes les données disponibles et améliore le rappel (0,977), ce qui signifie que presque toutes les fraudes sont détectées.
 La \textit{balanced accuracy} atteint 0,949.
 Toutefois, l’inconvénient de cette méthode est le risque de surapprentissage, car les exemples de fraude sont répétés artificiellement sans ajouter de diversité.
@@ -310,7 +310,7 @@ Elle offre donc le meilleur compromis entre la détection des fraudes et la limi
 \subsection{Algorithmes}
 
 \begin{algorithm}[H]
-\caption{Random Undersampling}
+\caption{RUS}
 \KwIn{Dataset $D$ avec classes $C_{maj}$ et $C_{min}$}
 \KwOut{Dataset équilibré $D'$}
 
@@ -323,7 +323,7 @@ Construire $D' = C_{min} \cup$ sous-échantillon($C_{maj}$)\;
 \vspace{1cm}
 
 \begin{algorithm}[H]
-\caption{Random Oversampling}
+\caption{ROS}
 \KwIn{Dataset $D$ avec classes $C_{maj}$ et $C_{min}$}
 \KwOut{Dataset équilibré $D'$}
 
@@ -338,7 +338,7 @@ Construire $D' = C_{maj} \cup C_{min}$ (après duplication)\;
 \vspace{1cm}
 
 \begin{algorithm}[H]
-\caption{Borderline-SMOTE (Synthetic Minority Oversampling Technique)}
+\caption{SMOTE (Synthetic Minority Over-sampling Technique)}
 \KwIn{Dataset $D$ avec classes $C_{maj}$ et $C_{min}$, nombre de voisins $k$}
 \KwOut{Dataset équilibré $D'$}
 
@@ -371,20 +371,6 @@ Construire $D' = C_{maj} \cup C_{min}$ (avec points synthétiques générés)\;
 
 \vspace{1cm}
 
-\subsection*{Étape finale commune}
-\begin{algorithm}[H]
-\caption{Application de la régression logistique et évaluation}
-\KwIn{Dataset équilibré $D'$ obtenu par Full Data, Undersampling, Oversampling ou SMOTE}
-\KwOut{Performance du modèle}
-
-Diviser $D'$ en données d'apprentissage (train) et de test (test)\;
-Standardiser les variables explicatives\;
-Entraîner une \textbf{régression logistique} sur l'échantillon d'apprentissage\;
-Prédire les probabilités sur l'échantillon test\;
-Tracer la \textbf{courbe ROC} et calculer l'\textbf{AUC}\;
-Construire la \textbf{matrice de confusion} pour évaluer les performances\;
-\Return{ROC, AUC, matrice de confusion}\;
-\end{algorithm}
 
 
 
@@ -392,7 +378,7 @@ Construire la \textbf{matrice de confusion} pour évaluer les performances\;
 
 
 \subsection{Coût algorithmique}
-
+\label{sec:algo}
 On note $n$ le nombre total d'observations, $n_{\text{min}}$ le nombre d'observations minoritaires,
 $d$ la dimension, $k$ le nombre de voisins à récupérer, et $M$ le nombre de points synthétiques à générer.
 On suppose l’espace $\mathbb{R}^d$ standardisé et une distance euclidienne.
