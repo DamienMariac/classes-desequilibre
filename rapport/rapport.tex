@@ -22,9 +22,9 @@
 \usepackage{setspace}
 
 % Marges
-%\usepackage{geometry}
-%\geometry{top=2.5cm, bottom=2.5cm, left=1.8cm, right=1.8cm}
-%\setstretch{1.2}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=1.8cm, right=1.8cm}
+\setstretch{1.2}
 
 % Définir les variables (vides par défaut)
 \newcommand{\UE}{}
@@ -179,7 +179,7 @@ peut synthétiser autant d’exemples minoritaires que souhaité.
 
 \begin{figure}[h!]
    \centering
-   \includegraphics[width=0.46\textwidth]{images/smote.png}
+   \includegraphics[width=0.50\textwidth]{images/smote.png}
    \caption{Smote illustration}
    \label{fig:example}
 \end{figure}
@@ -214,7 +214,17 @@ Un autre problème souvent mentionné dans la littérature concerne la sensibili
 pour créer de nouvelles données synthétiques incorrectes. Cela peut introduire du bruit et perturber l’apprentissage du modèle. Pour limiter ce problème, il est possible d’ignorer les observations minoritaires dont les k plus proches voisins appartiennent principalement
 à la classe majoritaire, afin d’éviter de générer des points non représentatifs.\medskip
 
-
+\begin{figure}[h]
+   \centering
+   \includegraphics[width=0.50\textwidth]{images/smoteinconv.png}
+   \caption{Smote et points aberrants}
+   \label{fig:example2}
+\end{figure}
+Dans cette illustration, les points bleux représentent la classe minoritaire, les rouges la classe majoritaire et les points bleus avec une croix sont les points générés par SMOTE.
+On remarque que certains points synthétiques sont créés dans la zone de la classe majoritaire du à un point mal classé, ce qui peut perturber l’apprentissage du modèle.
+\\
+\\
+\\
 Plusieurs variantes de SMOTE ont été développées pour corriger ces défauts :
 \begin{itemize}
     \item \textbf{SMOTE-NC (Nominal and Continuous)} : s’adapte aux jeux de données contenant à la fois des variables continues et qualitatives.
@@ -229,7 +239,9 @@ Plusieurs variantes de SMOTE ont été développées pour corriger ces défauts 
 Les méthodes ROS, RUS et SMOTE sont des approches différentes pour corriger le déséquilibre de classes. Elles ne se comparent pas directement, car leur efficacité dépend du jeu de données et du contexte d’application.
 En effet, on voit sur le tableau \ref{tab:methode} le récapitulatif des 3 méthodes avec leur points forts et point faibles. \\
 En réponse à la problématique posée, il n’existe pas de méthode réellement meilleure qu'une autre : le choix doit être adapté aux données et au modèle utilisé.
-L’objectif est d’obtenir un jeu de données plus équilibré afin d’améliorer les performances du modèle.\\
+L’objectif est d’obtenir un jeu de données plus équilibré afin d’améliorer les performances du modèle.
+\\
+\\
 
 \begin{table}[h!]
 \centering
@@ -269,6 +281,10 @@ Création d'exemples synthétiques de la classe minoritaire (interpolation entre
 \caption{Résumé des méthodes}\label{tab:methode}
 \end{table}
 
+Il existe néanmoins des variantes et des combinaisons de ces méthodes qui peuvent être explorées pour tirer parti de leurs avantages respectifs. Par exemple, on peut combiner SMOTE avec un léger sous-échantillonnage de la classe majoritaire pour obtenir un compromis entre diversité et réduction du biais.
+\\
+Nous avons exploré trois méthodes qui agissent au niveau des données pour atténuer le déséquilibre de classes. Mais il existe aussi des approches au niveau de l’algorithme, qui modifient la fonction de coût ou le processus d’apprentissage pour accorder plus d’importance à la classe minoritaire. Ces techniques peuvent être combinées avec les méthodes présenté ici pour maximiser les chances d’obtenir un modèle performant et robuste face au déséquilibre.
+
 
 \newpage
 
@@ -277,7 +293,7 @@ Création d'exemples synthétiques de la classe minoritaire (interpolation entre
 \subsection{Implémentation et résultats}
 \subsection*{Exemple d'application : Détection de fraudes par carte bancaire}
 
-L’objectif de cette application est de mettre en place un modèle de détection de fraudes à partir du jeu de données \textit{Credit Card Fraud Detection} disponible sur \textit{Kaggle}.
+L’objectif de cette application est de mettre en place un modèle de détection de fraudes à partir du jeu de données \textit{Credit Card Fraud Detection} disponible sur \textit{Kaggle} et sur le github associé \cite{gh}.
 Ce jeu contient 284\,807 transactions, dont seulement 492 sont frauduleuses (soit environ 0,17 \%).
 Le fort déséquilibre entre les classes rend la tâche difficile, car un modèle naïf qui prédirait toujours ``non fraude'' atteindrait déjà un score proche de 99,8 \%.
 Pour dépasser cette limite, plusieurs stratégies de gestion du déséquilibre ont été appliquées et comparées en utilisant une régression logistique.
@@ -377,7 +393,7 @@ Construire $D' = C_{maj} \cup C_{min}$ (avec points synthétiques générés)\;
 
 
 
-\subsection{Coût algorithmique}
+\subsection{Coût algorithmique de SMOTE}
 \label{sec:algo}
 On note $n$ le nombre total d'observations, $n_{\text{min}}$ le nombre d'observations minoritaires,
 $d$ la dimension, $k$ le nombre de voisins à récupérer, et $M$ le nombre de points synthétiques à générer.
