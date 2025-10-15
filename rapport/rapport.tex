@@ -93,7 +93,7 @@
 
 % Définir les infos
 \renewcommand{\UE}{UE Latex}
-\renewcommand{\titre}{ Apprentissage de classes déséquilibrées}
+\renewcommand{\titre}{ Apprentissage de classes déséquilibrées par rééchantillonnage}
 \renewcommand{\sujet}{\LARGE HAX907X - Apprentissage statistique}
 \renewcommand{\enseignant}{BENSAID Bilel}
 \renewcommand{\etudiants}{SAWADOGO Kader \\ GERMAIN Marine \\ LABOURAIL Célia \\ MARIAC Damien }
@@ -283,7 +283,7 @@ Création d'exemples synthétiques de la classe minoritaire (interpolation entre
 
 Il existe néanmoins des variantes et des combinaisons de ces méthodes qui peuvent être explorées pour tirer parti de leurs avantages respectifs. Par exemple, on peut combiner SMOTE avec un léger sous-échantillonnage de la classe majoritaire pour obtenir un compromis entre diversité et réduction du biais.
 \\
-Nous avons exploré trois méthodes qui agissent au niveau des données pour atténuer le déséquilibre de classes. Mais il existe aussi des approches au niveau de l’algorithme, qui modifient la fonction de coût ou le processus d’apprentissage pour accorder plus d’importance à la classe minoritaire. Ces techniques peuvent être combinées avec les méthodes présenté ici pour maximiser les chances d’obtenir un modèle performant et robuste face au déséquilibre.
+Nous avons exploré trois méthodes qui agissent au niveau des données pour atténuer le déséquilibre de classes. Mais il existe aussi des approches au niveau de l’algorithme, qui modifient la fonction de coût ou le processus d’apprentissage pour accorder plus d’importance à la classe minoritaire. Ces techniques peuvent être combinées avec les méthodes présentées ici pour maximiser les chances d’obtenir un modèle performant et robuste face au déséquilibre.
 
 
 \newpage
@@ -431,6 +431,52 @@ T_{\text{gen}} = O(M\,d).
 \boxed{ \; T_{\text{SMOTE}} \;=\; O(n_{\text{min}}\,n\,d) \;+\; O(M\,d) \;}
 \]
 En pratique, le terme $O(n_{\text{min}}\,n\,d)$ (recherche des voisins par force brute) domine.
+\subsection{Coût algorithmique de ROS et RUS}
+
+On note $n$ le nombre total d'observations, $n_{\min}$ le nombre d'observations minoritaires,
+$n_{\text{maj}}$ le nombre d'observations majoritaires, $d$ la dimension, et $M$ le nombre de points à
+ajouter (ROS) ou à retirer (RUS). On suppose les données stockées en matrice dense $\mathbb{R}^{n\times d}$.
+
+\paragraph{ROS (Random OverSampling).}
+On échantillonne avec remise des indices de la classe minoritaire pour créer $M$ duplicatas.
+
+\begin{itemize}
+  \item \textbf{Tirage d'indices (avec remise)} : $O(M)$.
+  \item \textbf{Copie des $M$ vecteurs (dimension $d$)} : $O(Md)$.
+\end{itemize}
+
+Ainsi, le coût total (naïf) de ROS est
+\[
+T_{\mathrm{ROS}} = O(Md).
+\]
+En pratique, le terme mémoire/copie $O(Md)$ domine (aucun calcul de distance).
+
+\paragraph{RUS (Random UnderSampling).}
+On choisit aléatoirement (sans remise) $n_{\text{keep}}$ points parmi la classe majoritaire
+et on forme un nouveau jeu de données $X' = X_{\min} \cup X_{\text{maj},\text{keep}}$, de taille
+$n_{\text{cible}} = n_{\min} + n_{\text{keep}}$ (typiquement $n_{\text{cible}} \le n$).
+
+\begin{itemize}
+  \item \textbf{Sélection d'indices (sans remise)} : $O(n_{\text{keep}})$
+  (via un tirage aléatoire ou un shuffle linéaire).
+  \item \textbf{Assemblage / copie des lignes retenues} : $O(n_{\text{cible}}\, d)$.
+\end{itemize}
+
+Le coût total s'écrit donc
+\[
+T_{\mathrm{RUS}} = O(n_{\text{cible}}\, d) \quad\text{avec}\quad n_{\text{cible}} \le n,
+\]
+souvent dominé par l'assemblage mémoire. Si l'on ne matérialise que des \emph{masques d'indices}
+et que l'entraînement en aval accepte un sous-échantillonnage par vue, le coût pratique se réduit
+au tirage $O(n_{\text{keep}})$.
+
+\paragraph{Bilan.}
+Contrairement à SMOTE (dominé par la recherche $k$NN), ROS et RUS n'impliquent aucun calcul de distance.
+Les coûts sont essentiellement linéaires en la taille copiée :
+\[
+\boxed{\,T_{\mathrm{ROS}} = O(Md)\,,\qquad T_{\mathrm{RUS}} = O(n_{\text{cible}}\, d)\,}
+\]
+avec, en pratique, une domination par les opérations de copie/assemblage mémoire.
 
 \newpage
 
