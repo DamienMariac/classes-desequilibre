@@ -11,6 +11,10 @@ library(ROSE)   # pour ovun.sample()
 # ---------------------------
 # 1. Charger les données
 # ---------------------------
+
+# Lien de téléchargement de la base de données :  https://www.kaggle.com/mlg-ulb/creditcardfraud
+# (à placer dans le dossier "code")
+
 df <- fread("creditcard.csv")
 
 # Vérifier la distribution initiale
