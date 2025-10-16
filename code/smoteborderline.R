@@ -13,7 +13,7 @@ library(smotefamily)
 # ---------------------------
 
 # Lien de téléchargement de la base de données :  https://www.kaggle.com/mlg-ulb/creditcardfraud
-# (à placer dans le dossier "code" )
+# (à placer à la racine du projet)
 
 df <- fread("creditcard.csv")
 df$Class <- as.factor(df$Class)
