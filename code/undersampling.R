@@ -14,7 +14,7 @@ library(dplyr)
 # Lien de téléchargement de la base de données :  https://www.kaggle.com/mlg-ulb/creditcardfraud
 # (à placer à la racine du projet)
 
-df <- fread("code/creditcard.csv")
+df <- fread("creditcard.csv")
 
 X <- df[, !"Class"]
 y <- df$Class
