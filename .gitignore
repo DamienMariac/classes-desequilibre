@@ -16,3 +16,5 @@ __pycache__/
 *.synctex.gz
 *.toc
 *.synctex(busy)
+*.nav
+*.snm
