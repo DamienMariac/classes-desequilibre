@@ -22,13 +22,89 @@
 \institute[Université Montpellier]{Université Montpellier \\ Département de Mathématique}
 \date{\today}
 
-\begin{document}
+\AtBeginSection[]
+{
+  \begin{frame}{Sommaire}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
 
+\begin{document}
 
 \begin{frame}
   \titlepage
 \end{frame}
-\begin{frame}{Sommaire}
+\section{Contexte}
+
+\section{Problématique}
+
+\begin{frame}{Les classes déséquilibrées}
+
+    \textbf{Problème :} difficulté à prédire la classe minoritaire \\[0.3cm]
+    $\Rightarrow$ Le modèle a tendance à ignorer cette classe. \\[0.5cm]
+
+    \begin{block}{Exemple général}
+        \begin{itemize}
+            \item 99\% vs 1\%.
+            \item Un modèle naïf prédit la classe majoritaire à une précision de 99\,\%.
+            \item Mauvais modèle.
+        \end{itemize}
+    \end{block}
 
 \end{frame}
+
+
+\begin{frame}{Problématique scientifique}
+    \centering
+    \Large{Comment atténuer le déséquilibre des classes pour améliorer la performance réelle du modèle ?}
+\end{frame}
+
+
+\section{Méthodes}
+
+
+\section{Limites des méthodes}
+
+
+\section{Application}
+
+
+\section{Conclusion}
+
+\begin{frame}{Bilan général des méthodes}
+    \centering
+    \small
+    \begin{tabular}{|l|p{3cm}|p{3cm}|}
+        \hline
+        \centering
+        \textbf{Méthode} & \textbf{Points forts} & \textbf{Limites} \\
+        \hline
+        \centering
+        ROS & Simplicité, conserve toutes les données & Overfitting, grand volume de données \\
+        \hline
+        \centering
+        RUS & Rapide et réduit le biais & perte d'information et représentativité \\
+        \hline
+        \centering
+        SMOTE & Données synthétiques variées & Coût élevé, sensible aux outliers \\
+        \hline
+    \end{tabular}
+    \vspace{0.7cm}
+
+    \textbf{Aucune méthode n’est universelle :}\\
+    le choix dépend du jeu de données et du modèle.
+\end{frame}
+
+\begin{frame}{Conclusion et perspectives}
+    \begin{itemize}
+        \item Pour notre jeu de données, la méthode la plus efficace est SMOTE.\\[0.5cm]
+        \item  Pour aller plus loin : il serait pertinent de combiner des méthodes existantes ou de pondérer les modèles.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \Huge Merci pour votre attention !
+\end{frame}
+
 \end{document}
