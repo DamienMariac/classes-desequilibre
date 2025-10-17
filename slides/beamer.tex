@@ -98,7 +98,7 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 
 \section{Méthodes}
 
-\begin{frame}{Random Over-simpling}
+\begin{frame}{Random Over-sampling}
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{images/ROS.png}
@@ -134,7 +134,7 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 
 \end{frame}
 
-\begin{frame}{Random Under-simpling}
+\begin{frame}{Random Under-sampling}
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{images/RUS.png}
@@ -310,7 +310,7 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 \begin{block}{SMOTE}
     \begin{itemize}
     \item temps de calculs 
-     \item création de points abérant 
+     \item création de points abérrants 
      \item hyperparamètre k 
      \item variable qualitative
      \end{itemize} 
@@ -321,7 +321,7 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 \begin{frame}{Limites des méthodes}
 \begin{block}{SMOTE}
     \begin{itemize}
-       \item Points aberrant 
+       \item Points abérrants 
    \end{itemize}  
 \end{block}
     
@@ -353,11 +353,11 @@ SMOTE & 284\,315 & 284\,315 \\
 \centering
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Méthode} & \textbf{Principe} & \textbf{Accuracy} & \textbf{Recall} & \textbf{Balanced Accuracy} \\
+\textbf{Méthode} & \textbf{Accuracy} & \textbf{Recall} & \textbf{Balanced Accuracy} \\
 \midrule
-\textbf{RUS} & Réduit la classe majoritaire & 0.956 & 0.959 & 0.956 \\
-\textbf{ROS} & Duplique la classe minoritaire & 0.949 & 0.977 & 0.949 \\
-\textbf{SMOTE} & Génère des exemples synthétiques & 0.981 & 0.992 & 0.970 \\
+\textbf{RUS} & 0.956 & 0.959 & 0.956 \\
+\textbf{ROS}  & 0.949 & 0.977 & 0.949 \\
+\textbf{SMOTE} & 0.981 & 0.992 & 0.970 \\
 \bottomrule
 \end{tabular}
 \end{block}
