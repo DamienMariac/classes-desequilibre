@@ -8,6 +8,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 \usepackage{lmodern}
+\usepackage{booktabs}
+
 
 % Couleur personnalisée
 \definecolor{c}{RGB}{120,20,30}
@@ -31,12 +33,46 @@
 
 \begin{document}
 
+
+
 \begin{frame}
   \titlepage
 \end{frame}
 \section{Contexte}
 
+\begin{frame}{Problème du déséquilibre et motivation du projet}
+\small
+
+\begin{block}{Un jeu de données très déséquilibré}
+\begin{itemize}
+    \item   CréditCard  : \textbf{284\,807 transactions}, dont seulement \textbf{492 fraudes} (\textbf{0,17\,\%}).
+    \item $\Rightarrow$ Les modèles ont tendance à ignorer la classe minoritaire.
+\end{itemize}
+\end{block}
+
+\vspace{0.3cm}
+
+\begin{block}{Illustration du problème}
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Modèle} & \textbf{Recall} & \textbf{Precision} & \textbf{F1-score} \\
+\midrule
+Régression Logistique & 0.59 & 0.89 & 0.70 \\
+Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
+\bottomrule
+\end{tabular}
+\end{block}
+
+\end{frame}
 \section{Problématique}
+
+
+
+
+
+
+
 
 \begin{frame}{Les classes déséquilibrées}
 
@@ -299,6 +335,32 @@
 
 
 \section{Application}
+ \centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Méthode} & \textbf{Transactions normales} & \textbf{Fraudes} \\
+\midrule
+ROS (Over-Sampling) & 284\,315 & 284\,315\\
+RUS (Under-Sampling) & 492 & 492 \\
+SMOTE & 284\,315 & 284\,315 \\
+\bottomrule
+\end{tabular}
+
+
+
+
+\begin{block}{Comparaison des méthodes de rééchantillonnage (Régression Logistique)}
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Méthode} & \textbf{Principe} & \textbf{Accuracy} & \textbf{Recall} & \textbf{Balanced Accuracy} \\
+\midrule
+\textbf{RUS} & Réduit la classe majoritaire & 0.956 & 0.959 & 0.956 \\
+\textbf{ROS} & Duplique la classe minoritaire & 0.949 & 0.977 & 0.949 \\
+\textbf{SMOTE} & Génère des exemples synthétiques & 0.981 & 0.992 & 0.970 \\
+\bottomrule
+\end{tabular}
+\end{block}
 
 
 \section{Conclusion}
