@@ -9,6 +9,11 @@
 \usepackage[french]{babel}
 \usepackage{lmodern}
 \usepackage{booktabs}
+\usepackage{booktabs}
+\usepackage{amsmath}   % optionnel
+\usepackage{array}     % optionnel
+
+
 
 
 % Couleur personnalisée
@@ -314,31 +319,38 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 
 \begin{frame}
 
- \centering
-\begin{tabular}{lcc}
-\toprule
-\textbf{Méthode} & \textbf{Transactions normales} & \textbf{Fraudes} \\
-\midrule
-ROS (Over-Sampling) & 284\,315 & 284\,315\\
-RUS (Under-Sampling) & 492 & 492 \\
-SMOTE & 284\,315 & 284\,315 \\
-\bottomrule
+\centering
+\textbf{Comparaison des matrices de confusion}
+
+\vspace{0.4cm}
+
+\begin{tabular}{c|cc|cc|cc}
+ & \multicolumn{2}{c|}{\textbf{RUS}} & \multicolumn{2}{c|}{\textbf{ROS}} & \multicolumn{2}{c}{\textbf{SMOTE}} \\
+ & \textbf{P-F} & \textbf{F} 
+ & \textbf{P-F} & \textbf{F} 
+ & \textbf{P-F} & \textbf{F} \\ \hline
+\textbf{Pas-Fraude} & 231 & 24 & 233 & 13 & 261 & 12 \\
+\textbf{Fraude}     & 13  & 232 & 7   & 247 & 0   & 227 \\
 \end{tabular}
+
+
+\vspace{0.4cm}
 
 \begin{block}{Comparaison des méthodes de rééchantillonnage (Régression Logistique)}
 \centering
-\begin{tabular}{lcccc}
+\begin{tabular}{lccc}
 \toprule
-\textbf{Méthode} & \textbf{Accuracy} & \textbf{Recall} & \textbf{Balanced Accuracy} \\
+\textbf{Méthode} & \textbf{Rappel (Fraude)} & \textbf{Spécificité} & \textbf{Exactitude équilibrée} \\
 \midrule
-\textbf{RUS} & 0.956 & 0.959 & 0.956 \\
-\textbf{ROS}  & 0.949 & 0.977 & 0.949 \\
-\textbf{SMOTE} & 0.981 & 0.992 & 0.970 \\
+\textbf{RUS}   & 0.906 & 0.947 & 0.926 \\
+\textbf{ROS}   & 0.950 & 0.971 & 0.960 \\
+\textbf{SMOTE} & 0.950 & 1.000 & 0.975 \\
 \bottomrule
 \end{tabular}
 \end{block}
 
 \end{frame}
+
 
 \section{Conclusion}
 
