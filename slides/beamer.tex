@@ -68,22 +68,6 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 
 \section{Problématique}
 
-\begin{frame}{Les classes déséquilibrées}
-
-    \textbf{Problème :} difficulté à prédire la classe minoritaire \\[0.3cm]
-    $\Rightarrow$ Le modèle a tendance à ignorer cette classe. \\[0.5cm]
-
-    \begin{block}{Exemple général}
-        \begin{itemize}
-            \item 99\% vs 1\%.
-            \item Un modèle naïf prédit la classe majoritaire à une précision de 99\,\%.
-            \item Mauvais modèle.
-        \end{itemize}
-    \end{block}
-
-\end{frame}
-
-
 \begin{frame}{Problématique scientifique}
     \centering
     \Large{Comment atténuer le déséquilibre des classes pour améliorer la performance réelle du modèle ?}
@@ -92,7 +76,7 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 
 \section{Méthodes}
 
-\begin{frame}{Random Over-sampling}
+\begin{frame}{Random Over-Sampling}
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{images/ROS.png}
@@ -118,17 +102,17 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 8 &  1 & original \\
 9 &  1 & original \\
 10 &  1 & original \\
-8 &  1 & duplicated \\
- 9 &  1 & duplicated \\
- 10 &  1 & duplicated \\
- 8 &  1 & duplicated \\
+8 &  1 & dupliqué \\
+ 9 &  1 & dupliqué \\
+ 10 &  1 & dupliqué \\
+ 8 &  1 & dupliqué \\
 \hline
 \end{tabular}
 \end{table}
 
 \end{frame}
 
-\begin{frame}{Random Under-sampling}
+\begin{frame}{Random Under-Sampling}
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{images/RUS.png}
