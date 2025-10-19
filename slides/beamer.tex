@@ -86,7 +86,7 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
     \centering
     \includegraphics[width=0.95\textwidth]{images/ROS.png}
 \end{figure}
-    
+
 \end{frame}
 
 \begin{frame}
@@ -95,7 +95,7 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 \caption{Jeu de données après sur-échantillonnage (ROS )}
 \begin{tabular}{|c|c|c|}
 \hline
-\textbf{x} & \textbf{label} & \textbf{source} \\ 
+\textbf{x} & \textbf{label} & \textbf{source} \\
 \hline
 1   & 0 & original \\
 2 &  0 & original \\
@@ -131,7 +131,7 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 \caption{Jeu de données après sous-échantillonnage (RUS)}
 \begin{tabular}{|c|c|c|}
 \hline
-\textbf{x} & \textbf{label} & \textbf{source} \\ 
+\textbf{x} & \textbf{label} & \textbf{source} \\
 \hline
 1   & 0 & supprimé\\
 2 &  0 & supprimé \\
@@ -265,12 +265,12 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 \begin{block}{ROS}
     \begin{itemize}
        \item Overfitting
-   \end{itemize} 
+   \end{itemize}
 \end{block}
     \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{images/lROS.png}
-     
+
 \end{figure}
 \end{frame}
 
@@ -290,22 +290,22 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 \begin{frame}{Limites des méthodes}
 \begin{block}{SMOTE}
     \begin{itemize}
-    \item Temps de calculs 
+    \item Temps de calculs
      \item Création de points aberrants
-     \item Hyperparamètre k 
+     \item Hyperparamètre k
      \item Variables qualitatives
-     \end{itemize} 
+     \end{itemize}
 \end{block}
-    
+
 \end{frame}
 
 \begin{frame}{Limites des méthodes}
 \begin{block}{SMOTE}
     \begin{itemize}
        \item Points aberrants
-   \end{itemize}  
+   \end{itemize}
 \end{block}
-    
+
     \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/lsmote.png}
@@ -326,8 +326,8 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
 
 \begin{tabular}{c|cc|cc|cc}
  & \multicolumn{2}{c|}{\textbf{RUS}} & \multicolumn{2}{c|}{\textbf{ROS}} & \multicolumn{2}{c}{\textbf{SMOTE}} \\
- & \textbf{P-F} & \textbf{F} 
- & \textbf{P-F} & \textbf{F} 
+ & \textbf{P-F} & \textbf{F}
+ & \textbf{P-F} & \textbf{F}
  & \textbf{P-F} & \textbf{F} \\ \hline
 \textbf{Pas-Fraude} & 231 & 24 & 233 & 13 & 261 & 12 \\
 \textbf{Fraude}     & 13  & 232 & 7   & 247 & 0   & 227 \\
@@ -389,5 +389,31 @@ Random Forest (200 arbres) & 0.60 & 0.95 & 0.85 \\
     \centering
     \Huge Merci pour votre attention !
 \end{frame}
+
+\begin{frame}[allowframebreaks]{Références}
+    \small
+    \begin{thebibliography}{9}
+
+    \bibitem{chawla2002smote}
+    N.~V. Chawla, K.~W. Bowyer, L.~O. Hall, W.~P. Kegelmeyer.
+    \newblock \emph{SMOTE: Synthetic Minority Over-sampling Technique}.
+    \newblock Journal of Artificial Intelligence Research, 16 (2002), 321--357.
+
+    \bibitem{chelouah}
+    M.~Chelouah.
+    \newblock \emph{Méthodes de rééquilibrage des classes en classification supervisée}.
+    \newblock (support de cours / ressource en ligne).
+
+    \end{thebibliography}
+    \end{frame}
+
+    \begin{frame}{Crédits images}
+      \small
+      \begin{itemize}
+        \item Figures ROS, RUS : réalisées avec GeoGebra.
+        \item Illustration SMOTE : réalisée avec Inkscape.
+      \end{itemize}
+    \end{frame}
+
 
 \end{document}
